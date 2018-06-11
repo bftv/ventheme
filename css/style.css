@@ -1,0 +1,27 @@
+/* Add CSS theme overrides here. */
+/* Fixes longer links not to break the main panel */
+.panel {
+	word-wrap: break-word;
+}
+
+/* Adds the little arrow for links, forms, additional information */
+.bftv-row::before {
+	position: absolute;
+	margin: 1px .5em 0 -.75em;
+	color: #deb31a;
+	content: "\203A";
+	font-family: Georgia;
+	font-size: 1.25em;
+	font-weight: normal;
+	line-height: 1;
+}
+.bftv-row {
+	margin-left: 1em;
+}
+
+/* Adds styling for Fax field on People's page */
+.ven-fax {
+	border-right: 1px solid #999; 
+	padding-right: .5em; 
+	margin-right: .25em;
+}
