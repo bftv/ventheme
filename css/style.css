@@ -31,3 +31,8 @@
 	padding-left: 6em;
 	font-weight: 300;
 }
+
+/* Verticle alignment for all tables */
+td {
+	verticle-align: top;
+}
