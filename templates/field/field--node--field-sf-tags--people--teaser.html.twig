@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Theme override for a taxonomy term reference label field on an entity full display.
+ *
+ * Available variables:
+ * - Look in the field.html.twig file for available variables.
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+  ]
+%}
+{%
+  set title_classes = [
+    'field__label',
+    label_display == 'visually_hidden' ? 'visually-hidden',
+    'heading--auxiliary'
+  ]
+%}
+{% if not label_hidden %}
+  <h2{{ title_attributes.addClass(title_classes) }}>{{ label }}</h2>
+{% endif %}
+<div{{ attributes.addClass(classes, 'tags') }}>
+  {% for item in items %}
+    <a class="tags__tag" href="{{ item.content['#url'] }}">{{ item.content['#title']}}</a>
+  {% endfor %}
+</div>
