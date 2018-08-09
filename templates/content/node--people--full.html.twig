@@ -25,14 +25,14 @@
   <h3 class="u-space-bottom--small">{{ content.field_sf_unit }}</h3>
   
   {% if content.field_other_positions | render or content.field_awards | render %}
-    <ul class="vm-teaser__contact list--pipe text--smaller">
+    <ul class="vm-teaser__contact text--smaller"><b>
       {% if content.field_other_positions | render %}
-        <li><b>{{ content.field_other_positions }}</b></li>
+        <li>{{ content.field_other_positions }}</li>
       {% endif %}
       {% if content.field_awards | render %}
         <li>{{ content.field_awards }}</li>
       {% endif %}
-    </ul>
+    </b></ul>
   {% endif %}
 
   <ul class="list--pipe u-space-bottom">
