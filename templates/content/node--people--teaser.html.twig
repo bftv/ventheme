@@ -20,6 +20,17 @@
       {% endif %}
     </ul>
   {% endif %}
+  
+  {% if content.field_other_positions | render or content.field_awards | render %}
+    <ul class="vm-teaser__contact list--pipe text--smaller">
+      {% if content.field_other_positions | render %}
+        <li><b>{{ content.field_other_positions }}</b></li>
+      {% endif %}
+      {% if content.field_awards | render %}
+        <li>{{ content.field_awards }}</li>
+      {% endif %}
+    </ul>
+  {% endif %}
 
   <div class="text--smaller">{{ content.body }}</div>
 
@@ -78,6 +89,8 @@
 	  'field_sf_name_prefix',
 	  'field_sf_credentials',
 	  'field_fax',
+	  'content.field_awards',
+	  'content.field_other_positions',
       'body'
     ) }}
   </div>
