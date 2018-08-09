@@ -23,6 +23,17 @@
   <h1 class="u-space-bottom--small">{{ fullname |striptags }}</h1>
   <h2 class="person-position-title">{{ content.field_sf_position_title }}</h2>
   <h3 class="u-space-bottom--small">{{ content.field_sf_unit }}</h3>
+  
+  {% if content.field_other_positions | render or content.field_awards | render %}
+    <ul class="vm-teaser__contact list--pipe text--smaller">
+      {% if content.field_other_positions | render %}
+        <li><b>{{ content.field_other_positions }}</b></li>
+      {% endif %}
+      {% if content.field_awards | render %}
+        <li>{{ content.field_awards }}</li>
+      {% endif %}
+    </ul>
+  {% endif %}
 
   <ul class="list--pipe u-space-bottom">
     {{ content.field_sf_phone_numbers }}
@@ -64,7 +75,9 @@
   'field_sf_name_prefix',
   'field_sf_credentials',
   'field_research_advisor',
-  'field_fax'
+  'field_fax',
+  'field_other_positions',
+  'field_awards'
   ) }}
   
 </div>
