@@ -21,14 +21,15 @@
     </ul>
   {% endif %}
   
-  {% if content.field_other_positions | render or content.field_awards | render %}
-    <ul class="vm-teaser__contact text--smaller">
-      {% if content.field_other_positions | render %}
-        <li>{{ content.field_other_positions }}</li>
-      {% endif %}
-      {% if content.field_awards | render %}
+  {% if content.field_other_positions | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">      
+        <li>{{ content.field_other_positions }}</li>            
+    </ul>
+  {% endif %}
+  
+  {% if content.field_awards | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">     
         <li>{{ content.field_awards }}</li>
-      {% endif %}
     </ul>
   {% endif %}
 
