@@ -36,3 +36,10 @@
 td {
 	vertical-align: top;
 }
+
+/* List style type for multiple positions and awards on people's page */
+.bftv--list--no-style {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
