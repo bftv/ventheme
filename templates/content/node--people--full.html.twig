@@ -24,15 +24,16 @@
   <h2 class="person-position-title">{{ content.field_sf_position_title }}</h2>
   <h3 class="u-space-bottom--small">{{ content.field_sf_unit }}</h3>
   
-  {% if content.field_other_positions | render or content.field_awards | render %}
-    <ul class="vm-teaser__contact text--smaller"><b>
-      {% if content.field_other_positions | render %}
-        <li>{{ content.field_other_positions }}</li>
-      {% endif %}
-      {% if content.field_awards | render %}
+  {% if content.field_other_positions | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">      
+        <li>{{ content.field_other_positions }}</li>            
+    </ul>
+  {% endif %}
+  
+  {% if content.field_awards | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">     
         <li>{{ content.field_awards }}</li>
-      {% endif %}
-    </b></ul>
+    </ul>
   {% endif %}
 
   <ul class="list--pipe u-space-bottom">
