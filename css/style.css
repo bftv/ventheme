@@ -43,3 +43,9 @@ td {
 	padding: 0;
 	margin: 0;
 }
+
+/* Fix table width on Agenda for On the Road and Rave pages */
+td:fist-child span {
+	display: block;
+	width:150px;
+}
