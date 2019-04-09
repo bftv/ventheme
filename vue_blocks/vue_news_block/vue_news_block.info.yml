@@ -6,6 +6,7 @@ package: Vue
 core: '8.x'
 module_status: active
 presentation: vue
+component: true
 template: template.html
 add_css:
     header:
@@ -16,10 +17,25 @@ add_css:
 add_js:
   footer:
         'moment.min.js': {}
-        'https://unpkg.com/axios/dist/axios.min.js': {type: external}        
+        'https://unpkg.com/axios/dist/axios.min.js': {type: external} 
+        'vue-router.js': {}
         'script.js': {}
 configuration:
-  example_field:
+  itemsPerPage:
     type: textfield
-    title: 'Items per page'
+    title: 'News items per page'
     default_value: 10
+  ShowListing:
+    type: checkbox
+    title: 'Show only titles without blurb'
+    default_value: false
+  Department:
+    type: select
+    title: 'Choose a department'
+    options:
+      bftv: 'BFTV Cluster (includes all departments)'
+      bae: 'Biological and Agricultural Engineering'
+      fst: 'Food Science and Technology'
+      ven: 'Viticulture and Enology'
+      txc: 'Textiles and Clothing'
+    default_value: bftv
