@@ -53,6 +53,6 @@ td:fist-child span {
 /* Upcoming events height fix on Front Page */
 @media (min-width: 480px){
 	div#block-sf1subtheme-trumbapromotionalorcontrolcalendarspud {
-		height: 460px;
+		height: 490px;
 	}
 }
