@@ -39,3 +39,11 @@ configuration:
       ven: 'Viticulture and Enology'
       txc: 'Textiles and Clothing'
     default_value: bftv
+  DiffPage:
+    type: checkbox
+    title: 'Is it on a different page? (other than the main news page.)'
+    default_value: false
+  MainNewsPage:
+    type: textfield
+    title: 'What is the path of the main news page (e.g. /department/news)?'
+    default_value: '/about/news-events/department-news'
