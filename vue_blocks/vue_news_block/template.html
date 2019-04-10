@@ -8,13 +8,19 @@
 			<div v-for="news in newsData">
 				<article class="contextual-region node o-media vm-teaser">
 					<div v-if="news.relationships.field_sf_primary_image.data" class="o-media__figure vm-teaser__figure">
-						<router-link :to="{name: 'news', params: { newsID: news.attributes.uuid }}"><img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt"></router-link>
+						<div v-if="diffPage">
+							<img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt" @click="goNewsLink(news.attributes.uuid)">
+						</div>
+						<div v-else>
+							<router-link :to="{name: 'news', params: { newsID: news.attributes.uuid }}"><img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt"></router-link>
+						</div>
 					</div>
-					<div v-else class="o-media__figure vm-teaser__figure">
-						<router-link :to="{name: 'news', params: { newsID: news.attributes.uuid }}"><img src="https://news.bftv.ucdavis.edu/sites/g/files/dgvnsk1131/files/inline-images/np_thumb.gif" class="thumbnail" alt="no image placeholder"></router-link>
+					<div v-else class="o-media__figure vm-teaser__figure">						
+						<img src="https://news.bftv.ucdavis.edu/sites/g/files/dgvnsk1131/files/inline-images/np_thumb.gif" alt="no image placeholder">
 					</div>
 					<div class="o-media__body">
-						<h3 class="vm-teaser__title news-title"><router-link :to="{name: 'news', params: { newsID: news.attributes.uuid }}">{{ news.attributes.title }}</router-link></h3>
+						<h3 v-if="diffPage" class="vm-teaser__title news-title" @click="goNewsLink(news.attributes.uuid)">{{ news.attributes.title }}</router-link></h3>
+						<h3 v-else class="vm-teaser__title news-title"><router-link :to="{name: 'news', params: { newsID: news.attributes.uuid }}">{{ news.attributes.title }}</router-link></h3>
 						 <footer class="vm-teaser__byline">
 							<span>{{ moment.unix(news.attributes.created).format('MMMM DD, YYYY') }}</span>
 						</footer>
@@ -27,6 +33,7 @@
 					</div>
 				</article>
 			</div>
+			<div v-if="diffPage" class="more-link"><a :href="mainNewsPage">More news...</a></div>
 		</div>	
 	</div>
 	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
@@ -63,3 +70,4 @@
 	</div>
 	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
 </template>
+	
