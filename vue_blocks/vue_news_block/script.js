@@ -31,7 +31,9 @@ var newsList = Vue.extend({
 			loading: true,
 			itemsShown: 10,
 			listShow: false,
-			department: 'bftv'
+			department: 'bftv',
+			diffPage: false,
+			mainNewsPage: ''
         }
     },
 	
@@ -39,6 +41,8 @@ var newsList = Vue.extend({
 		this.itemsShown = drupalSettings.pdb.configuration[blockID].itemsPerPage,
 		this.listShow = drupalSettings.pdb.configuration[blockID].ShowListing,
 		this.department = drupalSettings.pdb.configuration[blockID].Department,
+		this.diffPage = drupalSettings.pdb.configuration[blockID].DiffPage,
+		this.mainNewsPage = drupalSettings.pdb.configuration[blockID].MainNewsPage,
 		firstURL = this.URLBuilder(this.department),
 		finalURL = APIurl+firstURL+'&page[limit]='+this.itemsShown,
 		this.getNewsList(finalURL)	
@@ -58,6 +62,9 @@ var newsList = Vue.extend({
 					return newsSiteURL+"/sites/g/files/dgvnsk1131/files/styles/sf_thumbnail/public"+this.thumbnails[i].attributes.uri.value.substr(8)
 				}
 			}			
+		},
+		goNewsLink: function(uuid) {
+			window.location.href = this.mainNewsPage+'#/news/'+uuid
 		},
 		URLBuilder: function(path){	
 			if(path == 'bftv'){
@@ -125,14 +132,22 @@ var singleNews = Vue.extend({
 /* Router */
 
 var router = new VueRouter({
-	mode: 'history',
+	/* mode: 'history', */
+	
 	scrollBehavior() {
 		return { x: 0, y: 0 };
 	},
+	
 	routes: [
-	//{ path: '/about/news-events/department-news/', component: newsList },
-	{ path: '*', component: newsList },
-	{ path: '/about/news-events/department-news/:newsID', name: 'news', component: singleNews }
+		{ 
+			path: '*', 
+			component: newsList 
+		},
+		{ 
+			path: '/news/:newsID', 
+			name: 'news', 
+			component: singleNews
+		}
 	]
 });
 
