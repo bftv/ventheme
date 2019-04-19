@@ -110,7 +110,7 @@ var singleRecord = Vue.extend({
             recordURL = 'http://vendept.ucdavis.edu:8082/culturecollection/getrecord?id='+this.$route.params.recordID,
 			axios.get(recordURL).then(response => {
 				this.record = response.data[0],
-				console.log(this.record),
+				//console.log(this.record),
 				this.loading = false				
 			})
         },		
