@@ -1,5 +1,5 @@
 /* Main URLs */
-ccDbUrl = "http://vendept.ucdavis.edu:8082/culturecollection/getrecord";
+ccDbUrl = "https://vendept.ucdavis.edu:8082/culturecollection/getrecord";
 const blockID = document.getElementsByClassName('vue-cc-block')[0].id;
 /* End Main URLs */
 
@@ -107,7 +107,7 @@ var singleRecord = Vue.extend({
 
     methods: {
         getThisRecord: function(){
-            recordURL = 'http://vendept.ucdavis.edu:8082/culturecollection/getrecord?id='+this.$route.params.recordID,
+            recordURL = 'https://vendept.ucdavis.edu:8082/culturecollection/getrecord?id='+this.$route.params.recordID,
 			axios.get(recordURL).then(response => {
 				this.record = response.data[0],
 				//console.log(this.record),
