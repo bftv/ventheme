@@ -14,7 +14,7 @@ var recordList = Vue.extend({
             recordsData: null,				
 			loading: true,
 			currentPage: 0,
-			pageSize: 5,
+			pageSize: 50,
 			visibleRecords: [],
 			s_strain_no: null,
 			s_type: null,
