@@ -95,4 +95,32 @@
 		</div>
 	</div>
 	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
-</template>	
+</template>
+
+<style scoped>
+	table {
+	display: block;
+	overflow-x: auto;
+}
+input, select {
+	height: auto;
+}
+.back-button {
+	text-align: right;
+	padding-bottom: 1rem;
+}
+.pagination-btn {
+	cursor: pointer;
+}
+.pagination-wrapper {
+	text-align: center;
+}
+.row {
+	display: flex;
+	background-color: #eee;
+}
+.column {
+	flex: 33%;
+	padding: 10px;
+}
+</style>
