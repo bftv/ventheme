@@ -1,6 +1,7 @@
 /* Main URLs */
 newsSiteURL = "https://news.bftv.ucdavis.edu";
 APIurl = newsSiteURL+"/jsonapi/node/news_article?sort=-created";
+gDiffPage = false;
 const blockID = document.getElementsByClassName('vue-news-block')[0].id;
 /* End Main URLs */
 
@@ -42,6 +43,7 @@ var newsList = Vue.extend({
 		this.listShow = drupalSettings.pdb.configuration[blockID].ShowListing,
 		this.department = drupalSettings.pdb.configuration[blockID].Department,
 		this.diffPage = drupalSettings.pdb.configuration[blockID].DiffPage,
+		gDiffPage = this.diffPage,
 		this.mainNewsPage = drupalSettings.pdb.configuration[blockID].MainNewsPage,
 		firstURL = this.URLBuilder(this.department),
 		finalURL = APIurl+firstURL+'&page[limit]='+this.itemsShown,
@@ -109,14 +111,14 @@ var singleNews = Vue.extend({
             newsURL = newsSiteURL+"/jsonapi/node/news_article/"+this.$route.params.newsID+"?include=field_sf_primary_image",
 			axios.get(newsURL).then(response => {
 				this.newsItem = response.data.data,
-				this.imgsrc = response.data.included ? newsSiteURL+response.data.included[0].attributes.url : '',				
+				this.imgsrc = response.data.included ? newsSiteURL+response.data.included[0].attributes.uri.url : '',				
 				this.loading = false				
 			})
         },
 		loadNewsDoc: function(docID){
 			newsURL = newsSiteURL+"/jsonapi/file/file/"+docID,
 			axios.get(newsURL).then(response => {
-				this.newsdocurl = newsSiteURL+response.data.data.attributes.url,
+				this.newsdocurl = newsSiteURL+response.data.data.attributes.uri.url,
 				this.newsdocname = response.data.data.attributes.filename
 			})
 		},
@@ -132,7 +134,9 @@ var singleNews = Vue.extend({
 /* Router */
 
 var router = new VueRouter({
-	/* mode: 'history', */
+	if(gDiffPage){
+		mode: 'history'
+	},
 	
 	scrollBehavior() {
 		return { x: 0, y: 0 };
