@@ -56,3 +56,7 @@ td:fist-child span {
 		height: 490px;
 	}
 }
+/* Don't show Google Scholar username */
+.field--name-field-google-scholar-username {
+	display: none;
+}
