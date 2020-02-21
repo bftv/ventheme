@@ -2,7 +2,7 @@
 const gsusername = document.getElementsByClassName('field--name-field-google-scholar-username')[0].innerHTML;
 MainURL = "https://web.bftv.ucdavis.edu/googlescholar/scholar.php?user="+gsusername+"&cstart=0";
 /* End Main URLs */
- 
+
 
 /* Components */
 
@@ -37,7 +37,14 @@ var pubList = Vue.extend({
 				this.errorbolean = true,
 				this.loading = false
 			});	
-		}		
+		},
+		centeredPopup: function(url,w='1000',h='550',scroll='yes'){
+			var popupWindow = null;
+			LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
+			TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
+			settings = 'height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
+			popupWindow = window.open(url,"Article Info",settings)
+		}
 	},
 })
 
