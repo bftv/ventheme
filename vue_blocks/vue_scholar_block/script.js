@@ -1,5 +1,13 @@
 /* Main URLs */
-const gsusername = document.getElementsByClassName('field--name-field-google-scholar-username')[0].innerHTML;
+guserelement = document.getElementsByClassName('field--name-field-google-scholar-username');
+gsusername = "";
+if(guserelement.length > 0){
+	gsusername = document.getElementsByClassName('field--name-field-google-scholar-username')[0].innerHTML;
+	guserexist = true;
+} else {
+	gsusername = 'KBPHNxUAAAAJ';
+	guserexist = false;
+}
 MainURL = "https://web.bftv.ucdavis.edu/googlescholar/scholar.php?user="+gsusername+"&cstart=0";
 /* End Main URLs */
 
@@ -15,11 +23,13 @@ var pubList = Vue.extend({
 			error: [],
 			errorbolean: false,
 			glink: "",
+			guser: true,
 			loading: true
         }
     },
 	
 	mounted: function() {
+		this.guser = guserexist,
 		this.getPubList(MainURL),
 		this.glink = "https://scholar.google.com/citations?user="+gsusername+"&cstart=0&pagesize=100&view_op=list_works&sortby=pubdate"
 	},
