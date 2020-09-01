@@ -60,3 +60,7 @@ td:fist-child span {
 .field--name-field-google-scholar-username {
 	display: none;
 }
+/* Min height for Marketing Highlight box */
+.marketing-highlight {
+	min-height: 400px;
+}
