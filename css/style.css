@@ -52,8 +52,8 @@ td:fist-child span {
 
 /* Upcoming events height fix on Front Page */
 @media (min-width: 480px){
-	div#block-sf1subtheme-trumbapromotionalorcontrolcalendarspud {
-		height: 490px;
+	div#block-sf1subtheme-trumbapromotionalorcontrolcalendarspud, div#block-vuenewsblock-2, div#block-ventweetfeed-2 {
+		height: 590px;
 	}
 }
 /* Don't show Google Scholar username */
