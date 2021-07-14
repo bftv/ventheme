@@ -25,6 +25,9 @@
 	padding-right: .5em; 
 	margin-right: .25em;
 }
+article[class*='category-brand--']{
+	--category-brand-contrast-color: #666;
+}
 
 /* Fixes the 3rd level side navigation */
 .sub-nav li li li a {
