@@ -6,7 +6,7 @@
 	<div v-if="!loading">
 		<div v-if="newsData">
 			<div v-for="news in newsData">
-				<article class="contextual-region node o-media vm-teaser">
+				<article class="contextual-region node o-media vm-teaser teaser-custom">
 					<div v-if="news.relationships.field_sf_primary_image.data" class="o-media__figure vm-teaser__figure">
 						<div v-if="diffPage">
 							<img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt" @click="goNewsLink(news.id)">
