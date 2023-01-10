@@ -1,4 +1,4 @@
-<div id="news-block" class="news-main">    
+<div id="news-block" class="news-main">
     <router-view></router-view>
 </div>
 
@@ -15,7 +15,7 @@
 							<router-link :to="{name: 'news', params: { newsID: news.id }}"><img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt"></router-link>
 						</div>
 					</div>
-					<div v-else class="o-media__figure vm-teaser__figure">						
+					<div v-else class="o-media__figure vm-teaser__figure">
 						<img src="https://news.bftv.ucdavis.edu/sites/g/files/dgvnsk1131/files/inline-images/np_thumb.gif" alt="no image placeholder">
 					</div>
 					<div class="o-media__body">
@@ -34,19 +34,17 @@
 				</article>
 			</div>
 			<div v-if="diffPage" class="more-link"><a :href="mainNewsPage">More news...</a></div>
-		</div>	
+		</div>
 	</div>
 	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
 </template>
 
 <template id="single-news-template">
-	<div v-if="!loading">	
+	<div v-if="!loading">
 		<div class="back-button"><button class="button" @click="goBack()"><-- Go Back to the News List</button></div>
 		<div v-if="newsItem">
-			<div class="node__content">
-				<div v-if="imgsrc" class="image-container">
-					<img :src="imgsrc" width="1280" height="720" :alt="newsItem.relationships.field_sf_primary_image.data.meta.alt" class="image-style-sf-landscape-16x9">
-				</div>
+			<div class="node__content">				
+				<div v-if="imgsrc" class="image-container-bg" :style="'background-image: url('+imgsrc+')'"></div>
 				<h2>{{ newsItem.attributes.title }}</h2>
 				<footer class="node__meta">
 					<div class="node__submitted meta-info">
@@ -60,16 +58,16 @@
 					<h3 class="heading--auxiliary-customized">Original Article</h3>
 					<a :href="newsItem.attributes.field_url_to_link_article.uri" target="_blank">{{ newsItem.attributes.field_url_to_link_article.uri }}</a>
 				</div>
-				<div v-if="newsItem.relationships.field_bftv_news_document.data.length">	
+				<div v-if="newsItem.relationships.field_bftv_news_document.data.length">
 					{{ loadNewsDoc(newsItem.relationships.field_bftv_news_document.data[0].id) }}
 					<h3 class="heading--auxiliary-customized">Documents</h3>
-					<a :href="newsdocurl" target="_blank">{{ newsdocname }}</a>						
-				</div>					
+					<a :href="newsdocurl" target="_blank">{{ newsdocname }}</a>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
-</template>	
+</template>
 
 <style scoped>
 .back-button {
@@ -79,6 +77,11 @@
 .image-container {
 	max-height: 500px;
 	overflow: hidden;
+}
+.image-container-bg {
+	height: 500px;
+	background-size: cover;
+	background-position: 50% 50%;
 }
 .posted-note {
 	font-size: 16px;
