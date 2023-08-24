@@ -69,6 +69,9 @@ td:fist-child span {
 }
 
 /* Job Details Page */
+.job-det-col {
+    width: 100%;
+}
 .job-det-col .views-label {
     display: inline-flex;
     width: 25%;
