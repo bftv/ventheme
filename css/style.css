@@ -67,3 +67,21 @@ td:fist-child span {
 .marketing-highlight {
 	min-height: 490px;
 }
+
+/* Job Details Page */
+.job-det-col .views-label {
+    display: inline-flex;
+    width: 25%;
+    font-weight: bold;
+    padding: 0.2rem;
+    background-color: #6fcfeb;
+    margin-right: 0.3rem;
+    border-bottom: 1px solid #fff;
+}
+
+.job-det-col .field-content {
+    width: 50%;
+    display: inline-block;
+    border-bottom: 1px solid #6fcfeb;
+    padding: 0.2rem;
+}
