@@ -80,6 +80,7 @@ td:fist-child span {
     background-color: #6fcfeb;
     margin-right: 0.3rem;
     border-bottom: 1px solid #fff;
+    vertical-align: top;
 }
 
 .job-det-col .field-content {
