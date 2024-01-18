@@ -61,7 +61,7 @@ var newsList = Vue.extend({
 		findthumbnail: function(imgid) {
 			for(var i=0; i < this.thumbnails.length; i++){
 				if(this.thumbnails[i].id == imgid){
-					return newsSiteURL+"/sites/g/files/dgvnsk1131/files/styles/sf_thumbnail/public"+this.thumbnails[i].attributes.uri.value.substr(8)+"?"
+					return newsSiteURL+"/sites/g/files/dgvnsk1131/files/styles/sf_thumbnail/public"+this.thumbnails[i].attributes.uri.value.substr(8)+"?h=2xx"
 				}
 			}			
 		},
