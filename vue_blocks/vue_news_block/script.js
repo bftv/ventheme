@@ -15,6 +15,18 @@ Vue.filter('fiximg', function (text) {
 	var content = text;
 	return content.replace(new RegExp('src="/sites', 'g'), 'class="inline-img" src="'+newsSiteURL+'/sites');
 });
+Vue.filter('extractAndFixImg', function (text) {
+  var content = text;
+  var imgTag = content.match(/<img[^>]*src="[^"]+"[^>]*>/);
+
+  if (imgTag) {
+    var fixedImgTag = imgTag[0].replace(new RegExp('src="/sites', 'g'), 'class="inline-img" src="'+newsSiteURL+'/sites');
+
+    return fixedImgTag;
+  } else {
+    return '';
+  }
+});
 
 /* End Global Filters */
  
