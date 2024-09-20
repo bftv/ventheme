@@ -53,7 +53,7 @@
 						</div>
 					</div>
 				</footer>
-				<div class="clearfix text-formatted" v-html="$options.filters.extractAndFixImg(newsItem.attributes.body.value)"></div>
+				<div class="clearfix text-formatted" v-html="$options.filters.fiximg(newsItem.attributes.body.value)"></div>
 				<div v-if="newsItem.attributes.field_url_to_link_article">
 					<h3 class="heading--auxiliary-customized">Original Article</h3>
 					<a :href="newsItem.attributes.field_url_to_link_article.uri" target="_blank">{{ newsItem.attributes.field_url_to_link_article.uri }}</a>
