@@ -15,17 +15,22 @@ Vue.filter('fiximg', function (text) {
 	var content = text;
 	return content.replace(new RegExp('src="/sites', 'g'), 'class="inline-img" src="'+newsSiteURL+'/sites');
 });
-Vue.filter('extractAndFixImg', function (text) {
-  var content = text;
-  var imgTag = content.match(/<img[^>]*src="[^"]+"[^>]*>/);
+Vue.filter('replaceDrupalMedia', function (text) {
+    var content = text;
+    var mediaTags = content.match(/<drupal-media[^>]+data-entity-uuid="([^"]+)"[^>]*><\/drupal-media>/g);
 
-  if (imgTag) {
-    var fixedImgTag = imgTag[0].replace(new RegExp('src="/sites', 'g'), 'class="inline-img" src="'+newsSiteURL+'/sites');
+    if (mediaTags) {
+        mediaTags.forEach(function (mediaTag) {
+            var uuidMatch = mediaTag.match(/data-entity-uuid="([^"]+)"/);
+            if (uuidMatch && uuidMatch[1]) {
+                var uuid = uuidMatch[1];
+                var imageUrl = `/sites/g/files/dgvnsk1131/files/styles/sf_small_width/public/media/images/${uuid}.jpeg`;
+                content = content.replace(mediaTag, `<img class="inline-img" src="${imageUrl}" alt="Image from media entity ${uuid}">`);
+            }
+        });
+    }
 
-    return fixedImgTag;
-  } else {
-    return '';
-  }
+    return content;
 });
 
 /* End Global Filters */
