@@ -11,9 +11,21 @@ Vue.filter('imgstriptruncate', function (text, stop, clamp) {
 	var content = text.slice(0, stop) + (stop < text.length ? clamp || '...' : '');
 	return content.replace(/<img[^>"']*((("[^"]*")|('[^']*'))[^"'>]*)*>/g,"");
 });
-Vue.filter('fiximg', function (text) {
+/* Vue.filter('fiximg', function (text) {
 	var content = text;
 	return content.replace(new RegExp('src="/sites', 'g'), 'class="inline-img" src="'+newsSiteURL+'/sites');
+}); */
+Vue.filter('fiximg', function (text) {
+    let content = text;
+    const drupalMediaRegex = /<drupal-media[^>]*data-entity-uuid="([^"]+)"[^>]*><\/drupal-media>/g;
+    content = content.replace(drupalMediaRegex, function (match, uuid) {
+        const imageUrl = `${newsSiteURL}/media/${uuid}`; 
+        return `<img class="inline-img" src="${imageUrl}" alt="Drupal media image">`;
+    });
+
+    content = content.replace(new RegExp('src="/sites', 'g'), 'class="inline-img" src="'+newsSiteURL+'/sites');
+
+    return content;
 });
 Vue.filter('replaceDrupalMedia', function (text) {
     var content = text;
