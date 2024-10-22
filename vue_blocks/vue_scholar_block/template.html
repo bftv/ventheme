@@ -1,0 +1,41 @@
+<div id="scholar-block" class="news-main">    
+    <router-view></router-view>
+</div>
+
+<template id="pub-list-template">
+	<div v-if="!loading">
+		<div v-if="!guser">
+			<p class="text-muted">We couldn't find a Google Scholar account for this profile.</p>
+		</div>
+		<div v-else>
+			<h3>Recent Publications</h3>
+			<p class="text-muted">This section lists up to 100 recent publications. For a full list, visit their <a :href="glink">Google Scholar Profile</a>.</p>
+			<div v-if="errorbolean">
+				<div class="alert alert--error">{{ error[0].stack }}</div>
+			</div>
+			<div v-else v-for="pub1 in pubData">
+				<div v-if="pub1">
+					<ul class="pub-list">
+					<div v-for="pub in pub1">
+						<li>
+							<a href="javascript:void(0)" @click="centeredPopup(pub.link)"><span v-html="pub.title"></span></a><br /><span v-if="pub.authors" class="text-muted" v-html="pub.authors"></span><br /><span class="text-muted" v-if="pub.venue" v-html="pub.venue"></span>
+						</li>
+					</div>	
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
+</template>
+
+<style scoped>
+.pub-list {
+	list-style: disc;
+	padding-inline-start: 40px;
+}
+.text-muted {
+    color: #6c757d !important;
+	font-size: .9rem;
+}
+</style>

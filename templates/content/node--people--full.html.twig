@@ -1,0 +1,85 @@
+{% extends "node.html.twig" %}
+
+{#
+/**
+ * @file
+ * Theme override for a node people defualt display
+ *
+ * Available variables:
+ * - Look in the node.html.twig file for available variables.
+ */
+#}
+{% block content %}
+<div{{ content_attributes.addClass('node__content') }}>
+  <div class="u-align--right u-width--one-third">
+    {{ content.field_sf_primary_image }}
+  </div>
+  {% set fullname %}
+      {{ content.field_sf_name_prefix }} {{ content.field_sf_first_name }} {{ content.field_sf_middle_initial }} {% apply spaceless %}{{ content.field_sf_last_name }}{% endapply %}
+	  {%- if node.field_sf_credentials is not empty %}	  
+	  {{- "," }} {{ content.field_sf_credentials }}
+	  {% endif %}
+  {% endset %}
+  <h1 class="u-space-bottom--small">{{ fullname|striptags|raw }}</h1>
+  <h2 class="person-position-title">{{ content.field_sf_position_title }}</h2>
+  <h3 class="u-space-bottom--small">{{ content.field_sf_unit }}</h3>
+  
+  {% if content.field_other_positions | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">      
+        <li>{{ content.field_other_positions }}</li>            
+    </ul>
+  {% endif %}
+  
+  {% if content.field_awards | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">     
+        <li>{{ content.field_awards }}</li>
+    </ul>
+  {% endif %}
+
+  <ul class="list--pipe u-space-bottom">
+    {{ content.field_sf_phone_numbers }}
+	{{ content.field_fax }}
+    {{ content.field_sf_emails }}
+    {{ content.field_sf_websites }}
+  </ul>
+
+  <div class="u-space-bottom">
+    {{ content.field_sf_office_location }}
+    {{ content.field_sf_address }}
+  </div>
+  
+  <div class="u-space-bottom">
+    {{ content.field_sf_address }}
+  </div>
+
+  <div class="u-space-bottom">
+    {{ content.field_sf_office_hours }}
+  </div>
+
+  <div class="u-space-bottom">
+    {{ content.field_research_advisor }}
+  </div>
+  
+  {{ content|without(
+  'field_sf_primary_image',
+  'field_sf_position_title',
+  'field_sf_unit',
+  'field_sf_phone_numbers',
+  'field_sf_emails',
+  'field_sf_websites',
+  'field_sf_office_location',
+  'field_sf_address',
+  'field_sf_office_hours',
+  'field_sf_first_name',
+  'field_sf_middle_initial',
+  'field_sf_last_name',
+  'field_sf_name_prefix',
+  'field_sf_credentials',
+  'field_research_advisor',
+  'field_fax',
+  'field_other_positions',
+  'field_awards'
+  ) }}
+  
+</div>
+{% endblock %}

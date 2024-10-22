@@ -1,0 +1,98 @@
+{% extends "node--teaser.html.twig" %}
+
+{#
+/**
+ * @file
+ * Theme override for a node sf-person teaser display
+ *
+ * Available variables:
+ * - Look in the node.html.twig file for available variables.
+ */
+#}
+{% block content %}
+  {% if content.field_sf_position_title | render or content.field_bftv_departments | render %}
+    <ul class="vm-teaser__position">
+      {% if content.field_sf_position_title | render %}
+        <li><b>{{ content.field_sf_position_title }}</b></li>
+      {% endif %}
+      {% if content.field_sf_unit | render %}
+        <li>{{ content.field_sf_unit }}</li>
+      {% endif %}
+    </ul>
+  {% endif %}
+  
+  {% if content.field_other_positions | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">      
+        <li>{{ content.field_other_positions }}</li>            
+    </ul>
+  {% endif %}
+  
+  {% if content.field_awards | render %}
+    <ul class="vm-teaser__contact bftv--list--no-style text--smaller">     
+        <li>{{ content.field_awards }}</li>
+    </ul>
+  {% endif %}
+
+  <div class="text--smaller">{{ content.body }}</div>
+
+  {% if content.field_sf_phone_numbers | render or content.field_sf_emails | render or content.field_sf_websites | render or content.field_fax | render %}
+    <ul class="vm-teaser__contact list--pipe text--smaller">
+      {% if content.field_sf_phone_numbers | render %}
+        {{ content.field_sf_phone_numbers }}
+      {% endif %}
+	  {% if content.field_fax | render %}
+        {{ content.field_fax }}
+      {% endif %}
+      {% if content.field_sf_emails | render %}
+        {{ content.field_sf_emails }}
+      {% endif %}
+      {% if content.field_sf_websites | render %}
+        {{ content.field_sf_websites }}
+      {% endif %}
+      <li><a class="icon icon--link icon--view-more" href="{{ url }}">View Listing</a></li>
+    </ul>
+  {% endif %}
+
+  {% if content.field_sf_office_location | render or content.field_sf_address | render %}
+  <div class="text--smaller u-space-bottom--small">
+    {% if content.field_sf_office_location | render %}
+      {{ content.field_sf_office_location }}
+    {% endif %}
+    {% if content.field_sf_office_location | render and content.field_sf_address | render %}
+    <br>
+    {% endif %}
+    {% if content.field_sf_address | render %}
+      {{ content.field_sf_address }}
+    {% endif %}
+  </div>
+  {% endif %}
+  
+  {% if content.field_sf_office_hours | render %}
+  <div class="text--smaller">{{ content.field_sf_office_hours }}</div>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('vm-teaser__summary') }}>
+    {{ content|without(
+      'links',
+      'field_sf_featured_status',
+      'field_sf_primary_image',
+      'field_sf_position_title',
+      'field_sf_unit',
+      'field_sf_phone_numbers',
+      'field_sf_emails',
+      'field_sf_websites',
+      'field_sf_office_location',
+      'field_sf_address',
+      'field_sf_office_hours',
+	  'field_sf_first_name',
+	  'field_sf_middle_initial',
+	  'field_sf_last_name',
+	  'field_sf_name_prefix',
+	  'field_sf_credentials',
+	  'field_fax',
+	  'field_awards',
+	  'field_other_positions',
+      'body'
+    ) }}
+  </div>
+{% endblock %}

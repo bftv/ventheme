@@ -1,0 +1,126 @@
+<div id="cc-block" class="cc-main">    
+    <router-view></router-view>
+</div>
+
+<template id="record-list-template">
+	<div v-if="!loading">
+		<div v-if="visibleRecords">
+			<div>
+				<h3>Search</h3>
+				<form class="search-form" @submit.prevent="search()">
+					<div class="row">
+						<div class="column">
+							<label>UCD#</label><input type="text" name="strain_no" v-model="s_strain_no" />
+							<label>Family</label>
+							<select name="type" v-model="s_type">
+								<option value="Bacteria">Bacteria</option>
+								<option value="Fungi">Fungi</option>
+								<option value="Yeast">Yeast</option> 
+							</select>
+							<label>Genus</label><input type="text" name="genus" v-model="s_genus" />
+						</div>
+						<div class="column">
+							<label>Species</label><input type="text" name="species" v-model="s_species" />
+							<label>Strain</label><input type="text" name="strain" v-model="s_strain" />
+							<label>Other#</label><input type="text" name="other_no" v-model="s_other_no" />
+						</div>
+						<div class="column">
+							<label>Source</label><input type="text" name="source" v-model="s_source" />
+							<label>Has Synonyms?</label>
+							<select name="synonyms" v-model="s_synonyms">
+								<option value="Yes">Yes</option>
+								<option value="No">No</option>
+							</select>
+							<input type="submit" value="Search" class="button">
+						</div>
+					</div>
+				</form>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<!-- <th v-for="col in columns">{{ col }} </th> -->
+						<th>UCD#</th>
+						<th>Family</th>
+						<th>Genus</th>
+						<th>Species</th>
+						<th>Strain</th>
+						<th>Other#</th>
+						<th>Source</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="row in visibleRecords" :visibleRecords="visibleRecords" :currentPage="currentPage" :recordsData="recordsData">
+						<td>{{ row.strain_no }}</td>
+						<td>{{ row.type }}</td>
+						<td>{{ row.genus }}</td>
+						<td>{{ row.species }}</td>
+						<td>{{ row.strain }}</td>
+						<td>{{ row.other_no }}</td>
+						<td>{{ row.source }}</td>
+						<td><router-link :to="{name: 'record', params: { recordID: row.id }}">view</router-link></td>
+					</tr>
+				</tbody>
+			</table>
+			<div v-if="totalPages() > 0" class="pagination-wrapper">
+				<span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> < </span>
+				{{ currentPage + 1 }} of {{ totalPages() }}
+				<span v-if="showNextLink()" class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> > </span>
+			</div>
+		</div>	
+	</div>
+	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
+</template>
+
+<template id="single-record-template">
+	<div v-if="!loading">	
+		<div class="back-button"><button class="button" @click="goBack()"><-- Go Back</button></div>
+		<div v-if="record">
+			<div class="node__content">
+				<table>
+					<tr><td style="width: 220px"><h4>UCD #</h4></td><td>{{ record.strain_no }}</td></tr>
+					<tr><td><h4>Family</h4></td><td>{{ record.type }}</td></tr>
+					<tr><td><h4>Genus</h4></td><td>{{ record.genus }}</td></tr>
+					<tr><td><h4>Species</h4></td><td>{{ record.species }}</td></tr>
+					<tr><td><h4>Strain</h4></td><td>{{ record.strain }}</td></tr>
+					<tr><td><h4>Source</h4></td><td>{{ record.Source }}</td></tr>
+					<tr><td><h4>Entered</h4></td><td>{{ record.entered }}</td></tr>
+					<tr><td><h4>Synonyms</h4></td><td>{{ record.synonyms }}</td></tr>
+					<tr><td><h4>Other #</h4></td><td>{{ record.other_no }}</td></tr>
+					<tr><td><h4>Public Domain</h4></td><td>{{ record.publicdomain }}</td></tr>
+					<tr><td><h4>External</h4></td><td>{{ record.external }}</td></tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div v-else style="text-align: center"><i  v-show="loading" class="fa fa-spinner fa-spin fa-4x" style="color: #999"></i></div>
+</template>
+
+<style scoped>
+	table {
+	display: block;
+	overflow-x: auto;
+}
+input, select {
+	height: auto;
+}
+.back-button {
+	text-align: right;
+	padding-bottom: 1rem;
+}
+.pagination-btn {
+	cursor: pointer;
+}
+.pagination-wrapper {
+	text-align: center;
+}
+.row {
+	display: flex;
+	background-color: #eee;
+}
+.column {
+	flex: 33%;
+	padding: 10px;
+}
+</style>

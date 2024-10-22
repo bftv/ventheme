@@ -1,0 +1,91 @@
+/* Add CSS theme overrides here. */
+/* Fixes longer links not to break the main panel */
+.panel {
+	word-wrap: break-word;
+}
+
+/* Adds the little arrow for links, forms, additional information */
+.bftv-row::before {
+	position: absolute;
+	margin: 1px .5em 0 -.75em;
+	color: #deb31a;
+	content: "\203A";
+	font-family: Georgia;
+	font-size: 1.25em;
+	font-weight: normal;
+	line-height: 1;
+}
+.bftv-row {
+	margin-left: 1em;
+}
+
+/* Adds styling for Fax field on People's page */
+.ven-fax {
+	border-right: 1px solid #999; 
+	padding-right: .5em; 
+	margin-right: .25em;
+}
+article[class*='category-brand--']{
+	--category-brand-contrast-color: #666;
+}
+
+/* Fixes the 3rd level side navigation */
+.sub-nav li li li a {
+	padding-left: 6em;
+	font-weight: 300;
+}
+
+/* Verticle alignment for all tables */
+td {
+	vertical-align: top;
+}
+
+/* List style type for multiple positions and awards on people's page */
+.bftv--list--no-style {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* Fix table width on Agenda for On the Road and Rave pages */
+td:fist-child span {
+	display: block;
+	width:150px;
+}
+
+/* Upcoming events height fix on Front Page */
+@media (min-width: 480px){
+	div#block-sf1subtheme-trumbapromotionalorcontrolcalendarspud, div#block-vuenewsblock-2, div#block-ventweetfeed-2 {
+		min-height: 590px;
+	}
+}
+/* Don't show Google Scholar username */
+.field--name-field-google-scholar-username {
+	display: none;
+}
+/* Min height for Marketing Highlight box */
+.marketing-highlight {
+	min-height: 490px;
+}
+
+/* Job Details Page */
+.job-det-col {
+    width: 100%;
+}
+.job-det-col .views-label {
+    display: inline-flex;
+    width: 25%;
+    font-weight: bold;
+    padding: 0.2rem;
+    background-color: #6fcfeb;
+    margin-right: 0.3rem;
+    border-bottom: 1px solid #fff;
+    vertical-align: top;
+}
+
+.job-det-col .field-content {
+    width: 50%;
+    display: inline-block;
+    border-bottom: 1px solid #6fcfeb;
+    padding: 0.2rem;
+}
