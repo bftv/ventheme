@@ -4,34 +4,67 @@
 
 <template id="news-list-template">
 	<div v-if="!loading">
-		<div v-if="newsData">
-			<div v-for="news in newsData">
-				<article class="contextual-region node o-media vm-teaser teaser-custom">
-					<div v-if="news.relationships.field_sf_primary_image.data" class="o-media__figure vm-teaser__figure">
-						<div v-if="diffPage">
-							<img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt" @click="goNewsLink(news.id)">
-						</div>
-						<div v-else>
-							<router-link :to="{name: 'news', params: { newsID: news.id }}"><img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt"></router-link>
-						</div>
+		<div v-if="newsData">			
+			<div v-if="OneCol">
+				<div class="news-container">
+					<div class="news-left-column" v-if="mainArticle">
+						<article class="contextual-region node o-media vm-teaser teaser-custom" style="display: block">
+							<div>
+								<img :src="findlandscape(mainArticle.relationships.field_sf_primary_image.data.id)"
+									 style="width: 100%;"
+									 :alt="mainArticle.relationships.field_sf_primary_image.data.meta.alt"
+									 @click="goNewsLink(mainArticle.id)">
+							</div>
+							<div class="o-media__body" style="background-color: #022851; padding: 1rem;">
+								<h3 class="vm-teaser__title news-title" @click="goNewsLink(mainArticle.id)" style="color: #fff; font-size: 1.2rem;">{{ mainArticle.attributes.title }}</h3>
+								<footer class="vm-teaser__byline" style="color: #ccc;">
+									<span>{{ moment(mainArticle.attributes.created).format('MMMM DD, YYYY') }}</span>
+								</footer>
+							</div>
+						</article>
 					</div>
-					<div v-else class="o-media__figure vm-teaser__figure">
-						<img src="https://news.bftv.ucdavis.edu/sites/g/files/dgvnsk1131/files/inline-images/np_thumb.gif" alt="no image placeholder">
+					
+					<div class="news-right-column">
+						<article v-for="(news, index) in remainingArticles" :key="index" class="contextual-region node o-media vm-teaser teaser-custom">
+							<div class="o-media__body">
+								<h3 class="vm-teaser__title news-title" @click="goNewsLink(news.id)" style="font-size: 1.2rem;">{{ news.attributes.title }}</h3>
+								<footer class="vm-teaser__byline">
+									<span>{{ moment(news.attributes.created).format('MMMM DD, YYYY') }}</span>
+								</footer>
+							</div>
+						</article>
 					</div>
-					<div class="o-media__body">
-						<h3 v-if="diffPage" class="vm-teaser__title news-title" @click="goNewsLink(news.id)">{{ news.attributes.title }}</router-link></h3>
-						<h3 v-else class="vm-teaser__title news-title"><router-link :to="{name: 'news', params: { newsID: news.id }}">{{ news.attributes.title }}</router-link></h3>
-						 <footer class="vm-teaser__byline">
-							<span>{{ moment(news.attributes.created).format('MMMM DD, YYYY') }}</span>
-						</footer>
-						<div v-if="!listShow">
-							<div v-if="news.attributes.body" class="vm-teaser__summary">
-								<div v-if="news.attributes.body.value" v-html="imgstriptruncate(news.attributes.body.value, 300)"></div>
-								<div v-else-if="news.attributes.body.summary" v-html="imgstriptruncate(news.attributes.body.summary, 600)"></div>
+				</div>									
+			</div>
+			<div v-else>
+				<div v-for="news in newsData">
+					<article class="contextual-region node o-media vm-teaser teaser-custom">
+						<div v-if="news.relationships.field_sf_primary_image.data" class="o-media__figure vm-teaser__figure">
+							<div v-if="diffPage">
+								<img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt" @click="goNewsLink(news.id)">
+							</div>
+							<div v-else>
+								<router-link :to="{name: 'news', params: { newsID: news.id }}"><img :src="findthumbnail(news.relationships.field_sf_primary_image.data.id)" class="thumbnail" :alt="news.relationships.field_sf_primary_image.data.meta.alt"></router-link>
 							</div>
 						</div>
-					</div>
-				</article>
+						<div v-else class="o-media__figure vm-teaser__figure">
+							<img src="https://news.bftv.ucdavis.edu/sites/g/files/dgvnsk1131/files/inline-images/np_thumb.gif" alt="no image placeholder">
+						</div>
+						<div class="o-media__body">
+							<h3 v-if="diffPage" class="vm-teaser__title news-title" @click="goNewsLink(news.id)">{{ news.attributes.title }}</h3>
+							<h3 v-else class="vm-teaser__title news-title"><router-link :to="{name: 'news', params: { newsID: news.id }}">{{ news.attributes.title }}</router-link></h3>
+							<footer class="vm-teaser__byline">
+								<span>{{ moment(news.attributes.created).format('MMMM DD, YYYY') }}</span>
+							</footer>
+							<div v-if="!listShow">
+								<div v-if="news.attributes.body" class="vm-teaser__summary">
+									<div v-if="news.attributes.body.value" v-html="imgstriptruncate(news.attributes.body.value, 300)"></div>
+									<div v-else-if="news.attributes.body.summary" v-html="imgstriptruncate(news.attributes.body.summary, 600)"></div>
+								</div>
+							</div>
+						</div>
+					</article>
+				</div>
 			</div>
 			<div v-if="diffPage" class="more-link"><a :href="mainNewsPage">More news...</a></div>
 		</div>
@@ -87,8 +120,13 @@
 	font-size: 16px;
 	color: #666;
 }
-.news-title:hover {
-	color: #000;
+.news-title {
+	color: #022851;
+	font-size: 1rem;
+	line-height: 1.2;
+	font-weight: 800;
+}
+.news-title:hover {	
 	cursor: pointer;
 	text-decoration: underline;
 }
@@ -115,5 +153,21 @@
 }
 .teaser-custom {
 	padding-bottom: .5rem;
+}
+.news-container {
+	display: flex;
+}
+
+.news-left-column {
+	width: 60%; /* Larger column */
+	padding-right: 1em;
+}
+
+.news-right-column {
+	width: 40%; /* Smaller column */
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	padding-left: 1rem;
 }
 </style>

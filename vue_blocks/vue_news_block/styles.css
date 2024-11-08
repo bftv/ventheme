@@ -36,3 +36,18 @@
 .more-link {
 	text-align: right;
 }
+.news-container {
+	display: flex;
+}
+
+.news-left-column {
+	width: 60%; /* Larger column */
+	padding-right: 1em;
+}
+
+.news-right-column {
+	width: 40%; /* Smaller column */
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}

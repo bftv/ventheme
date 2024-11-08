@@ -47,3 +47,7 @@ configuration:
     type: textfield
     title: 'What is the path of the main news page (e.g. /department/news)?'
     default_value: '/about/news-events/department-news'
+  OneCol:
+    type: checkbox
+    title: 'Make news listing in a single column (Useful if you use Layout Builder)'
+    default_value: false

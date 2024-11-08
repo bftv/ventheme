@@ -24,7 +24,8 @@ var newsList = {
 
     data: function() {
 			return {
-				newsData: null,			
+				newsData: null,
+				newsData2: null,
 				thumbnails: '',			
 				moment: moment,
 				loading: true,
@@ -32,7 +33,8 @@ var newsList = {
 				listShow: false,
 				department: 'bftv',
 				diffPage: false,
-				mainNewsPage: ''
+				mainNewsPage: '',
+				OneCol: false
 			}
     },
 	
@@ -43,6 +45,7 @@ var newsList = {
 		this.diffPage = drupalSettings.pdb.configuration[blockID].DiffPage,
 		gDiffPage = this.diffPage,
 		this.mainNewsPage = drupalSettings.pdb.configuration[blockID].MainNewsPage,
+		this.OneCol = drupalSettings.pdb.configuration[blockID].OneCol,
 		firstURL = this.URLBuilder(this.department),
 		finalURL = APIurl+firstURL+'&page[limit]='+this.itemsShown,
 		this.getNewsList(finalURL)	
@@ -51,7 +54,8 @@ var newsList = {
   methods: {
 		getNewsList: function(url){
 			axios.get(url).then(response => {			
-				this.newsData = response.data.data,			
+				this.newsData = response.data.data,
+				this.newsData2 = response.data.data,	
 				this.thumbnails = response.data.included,
 				this.loading = false
 			})
@@ -64,6 +68,13 @@ var newsList = {
 			for(var i=0; i < this.thumbnails.length; i++){
 				if(this.thumbnails[i].id == imgid){
 					return newsSiteURL+"/sites/g/files/dgvnsk1131/files/styles/sf_thumbnail/public"+this.thumbnails[i].attributes.uri.value.substr(8)+"?h="
+				}
+			}			
+		},
+		findlandscape: function(imgid) {
+			for(var i=0; i < this.thumbnails.length; i++){
+				if(this.thumbnails[i].id == imgid){
+					return newsSiteURL+"/sites/g/files/dgvnsk1131/files/styles/sf_landscape_16x9/public"+this.thumbnails[i].attributes.uri.value.substr(8)
 				}
 			}			
 		},
@@ -88,6 +99,18 @@ var newsList = {
 			}
 		}
 	},
+	computed: {
+		// A computed property to dynamically set the main article and remaining articles.
+		mainArticle() {
+			if (!this.newsData2) return null;
+			return this.newsData2.find(news => news.relationships.field_sf_primary_image?.data);
+		},
+		remainingArticles() {
+			if (!this.newsData2) return [];
+			// Filter out the main article and return the rest
+			return this.newsData2.filter(news => news !== this.mainArticle);
+		}
+	}
 }
 
 var singleNews = {
